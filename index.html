@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baby Shower RSVP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f9f0ff;
+            color: #4a2c5a;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #8e44ad;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: #9b59b6;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Poppins', sans-serif;
+        }
+        button {
+            background-color: #8e44ad;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #732d91;
+        }
+        .confirmation {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e8f5e9;
+            border-radius: 5px;
+            color: #2e7d32;
+        }
+        .baby-icon {
+            font-size: 40px;
+            margin: 20px 0;
+            color: #e91e63;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="baby-icon">👶</div>
+        <h1>Baby Shower Invitation</h1>
+        <p class="subtitle">Please RSVP by [Your Deadline Date]</p>
+        
+        <form id="rsvpForm">
+            <div class="form-group">
+                <label for="name">Your Name(s)</label>
+                <input type="text" id="name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email or Phone Number</label>
+                <input type="text" id="contact" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="attending">Will you be attending?</label>
+                <select id="attending" required>
+                    <option value="">Select an option</option>
+                    <option value="yes">Yes, I'll be there!</option>
+                    <option value="no">Sorry, can't make it</option>
+                </select>
+            </div>
+            
+            <div class="form-group" id="guestsGroup" style="display: none;">
+                <label for="guests">Number of guests (including yourself)</label>
+                <input type="number" id="guests" min="1" value="1">
+            </div>
+            
+            <div class="form-group">
+                <label for="message">Message for the parents-to-be (optional)</label>
+                <textarea id="message" rows="3"></textarea>
+            </div>
+            
+            <button type="submit">Submit RSVP</button>
+        </form>
+        
+        <div id="confirmation" class="confirmation">
+            Thank you for your RSVP! We look forward to celebrating with you.
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('attending').addEventListener('change', function() {
+            const guestsGroup = document.getElementById('guestsGroup');
+            if (this.value === 'yes') {
+                guestsGroup.style.display = 'block';
+            } else {
+                guestsGroup.style.display = 'none';
+            }
+        });
+        
+        document.getElementById('rsvpForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // In a real implementation, you would send this data to a server
+            const formData = {
+                name: document.getElementById('name').value,
+                contact: document.getElementById('contact').value,
+                attending: document.getElementById('attending').value,
+                guests: document.getElementById('attending').value === 'yes' 
+                         ? document.getElementById('guests').value 
+                         : 0,
+                message: document.getElementById('message').value
+            };
+            
+            console.log('RSVP Submitted:', formData);
+            
+            // Show confirmation
+            document.getElementById('confirmation').style.display = 'block';
+            document.getElementById('rsvpForm').reset();
+            document.getElementById('guestsGroup').style.display = 'none';
+            
+            // Scroll to confirmation
+            document.getElementById('confirmation').scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
