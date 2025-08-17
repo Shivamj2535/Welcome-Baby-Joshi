@@ -3,266 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Little Krishna's Baby Shower</title>
+    <title>Divine Krishna Baby Shower</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&family=Tangerine:wght@700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #f9f0ff;
-            background-image: url('https://i.imgur.com/J6yfZQp.jpg');
-            background-size: cover;
-            background-attachment: fixed;
-            color: #4a2c5a;
             margin: 0;
-            padding: 20px;
-            text-align: center;
+            padding: 0;
+            color: #fff;
+            overflow-x: hidden;
         }
+        
+        /* Video Background */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .video-background video {
+            min-width: 100%;
+            min-height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Overlay for better text readability */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: -1;
+        }
+        
         .container {
             max-width: 600px;
-            margin: 20px auto;
-            background-color: rgba(255, 255, 255, 0.9);
+            margin: 50px auto;
+            background-color: rgba(255, 255, 255, 0.85);
             padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
             border: 2px solid #8e44ad;
         }
+        
         h1 {
             font-family: 'Tangerine', cursive;
             color: #8e44ad;
-            font-size: 48px;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            font-size: 72px;
+            margin: 10px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
         }
-        .subtitle {
-            color: #9b59b6;
-            margin-bottom: 30px;
-            font-style: italic;
-        }
+        
         .krishna-icon {
             font-size: 60px;
             margin: 10px 0;
             color: #4a148c;
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
         }
-        .form-group {
-            margin-bottom: 20px;
-            text-align: left;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 500;
-            color: #6a1b9a;
-        }
-        input, select, textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-family: 'Poppins', sans-serif;
-            background-color: #f3e5f5;
-        }
-        button {
-            background-color: #8e44ad;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s;
-            margin-top: 10px;
-        }
-        button:hover {
-            background-color: #732d91;
-        }
-        .confirmation {
-            display: none;
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #e8f5e9;
-            border-radius: 5px;
-            color: #2e7d32;
-        }
-        .music-control {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: white;
-            padding: 10px;
-            border-radius: 50%;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            z-index: 100;
-        }
-        .floating-baloons {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
-        .baloon {
-            position: absolute;
-            background-color: rgba(156, 39, 176, 0.2);
-            border-radius: 50%;
-        }
+        
+        /* Rest of your existing styles... */
     </style>
 </head>
 <body>
+    <!-- Video Background -->
+    <div class="video-background">
+        <video autoplay muted loop id="bgVideo">
+            <!-- Replace with your actual video file -->
+            <source src="krishna-baby-shower-bg.mp4" type="video/mp4">
+            Your browser does not support HTML5 video.
+        </video>
+    </div>
+    <div class="overlay"></div>
+
     <div class="container">
         <div class="krishna-icon">🪷</div>
         <h1>Little Krishna's Baby Shower</h1>
-        <p class="subtitle">Join us in celebrating the arrival of our little miracle</p>
         
+        <!-- Your existing RSVP form goes here -->
         <form id="rsvpForm">
-            <div class="form-group">
-                <label for="name">Your Name(s)</label>
-                <input type="text" id="name" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="email">Email or Phone Number</label>
-                <input type="text" id="contact" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="attending">Will you be attending?</label>
-                <select id="attending" required>
-                    <option value="">Select an option</option>
-                    <option value="yes">Yes, I'll be there with blessings!</option>
-                    <option value="no">Sorry, can't make it</option>
-                </select>
-            </div>
-            
-            <div class="form-group" id="guestsGroup" style="display: none;">
-                <label for="guests">Number of guests (including yourself)</label>
-                <input type="number" id="guests" min="1" value="1">
-            </div>
-            
-            <div class="form-group">
-                <label for="message">Blessings for the baby (optional)</label>
-                <textarea id="message" rows="3" placeholder="May Lord Krishna bless our little one..."></textarea>
-            </div>
-            
-            <button type="submit">Submit RSVP</button>
+            <!-- ... form fields ... -->
         </form>
-        
-        <div id="confirmation" class="confirmation">
-            Thank you for your RSVP! May Lord Krishna bless you.
-        </div>
     </div>
-
-    <!-- Music Control -->
-    <div class="music-control" onclick="toggleMusic()">
-        <span id="musicIcon">🔊</span>
-    </div>
-
-    <!-- Floating Baloons Background -->
-    <div class="floating-baloons" id="baloons"></div>
-
-    <!-- Audio Element - Updated with your Krishna flute music -->
-    <audio id="bgMusic" loop>
-        <source src="https://soundcloud.com/user-576651529/krishna-flute-music" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
 
     <script>
-        // Music Control
-        const bgMusic = document.getElementById('bgMusic');
-        const musicIcon = document.getElementById('musicIcon');
-        let musicPlaying = false;
-
-        function toggleMusic() {
-            if (musicPlaying) {
-                bgMusic.pause();
-                musicIcon.textContent = '🔇';
-            } else {
-                bgMusic.play().catch(error => {
-                    console.log("Playback prevented:", error);
-                    alert("Please interact with the page first to play music");
-                });
-                musicIcon.textContent = '🔊';
-            }
-            musicPlaying = !musicPlaying;
-        }
-
-        // Auto-play music attempt after user interaction
-        document.addEventListener('click', function initMusic() {
-            bgMusic.play().then(() => {
-                musicPlaying = true;
-                musicIcon.textContent = '🔊';
-            }).catch(error => {
-                console.log("Auto-play prevented:", error);
+        // Video autoplay with mute (required for mobile)
+        document.addEventListener('DOMContentLoaded', function() {
+            const video = document.getElementById('bgVideo');
+            video.play().catch(error => {
+                console.log("Autoplay prevented, showing poster instead");
+                video.poster = "krishna-poster.jpg"; // Fallback image
             });
-            document.removeEventListener('click', initMusic);
-        }, { once: true });
-
-        // RSVP Form Logic
-        document.getElementById('attending').addEventListener('change', function() {
-            const guestsGroup = document.getElementById('guestsGroup');
-            if (this.value === 'yes') {
-                guestsGroup.style.display = 'block';
-            } else {
-                guestsGroup.style.display = 'none';
-            }
         });
-        
-        document.getElementById('rsvpForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const formData = {
-                name: document.getElementById('name').value,
-                contact: document.getElementById('contact').value,
-                attending: document.getElementById('attending').value,
-                guests: document.getElementById('attending').value === 'yes' 
-                         ? document.getElementById('guests').value 
-                         : 0,
-                message: document.getElementById('message').value
-            };
-            
-            console.log('RSVP Submitted:', formData);
-            
-            document.getElementById('confirmation').style.display = 'block';
-            document.getElementById('rsvpForm').reset();
-            document.getElementById('guestsGroup').style.display = 'none';
-            document.getElementById('confirmation').scrollIntoView({ behavior: 'smooth' });
-        });
-
-        // Create floating baloons
-        function createBaloons() {
-            const container = document.getElementById('baloons');
-            const colors = ['#f48fb1', '#ce93d8', '#b39ddb', '#9fa8da', '#90caf9'];
-            
-            for (let i = 0; i < 15; i++) {
-                const baloon = document.createElement('div');
-                baloon.className = 'baloon';
-                
-                const size = Math.random() * 30 + 20;
-                const color = colors[Math.floor(Math.random() * colors.length)];
-                
-                baloon.style.width = `${size}px`;
-                baloon.style.height = `${size}px`;
-                baloon.style.backgroundColor = color;
-                baloon.style.left = `${Math.random() * 100}%`;
-                baloon.style.top = `${Math.random() * 100}%`;
-                baloon.style.animation = `float ${Math.random() * 6 + 4}s linear infinite`;
-                baloon.style.opacity = Math.random() * 0.5 + 0.3;
-                
-                container.appendChild(baloon);
-            }
-        }
-
-        // Add floating animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes float {
-                0% { transform: translateY(0) rotate(0deg); }
-                50% { transform: translateY(-100px) rotate(180deg); }
-                100% { transform: translateY(-200px) rotate(360deg); }
-            }
-        `;
-        document.head.appendChild(style);
-
-        createBaloons();
     </script>
 </body>
 </html>
